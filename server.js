@@ -49,7 +49,7 @@ const upload = multer({
 usersRoutes(app, upload);
 
 
-server.listen(port, '192.168.1.6' || 'localhost', function () {
+server.listen(port, '192.168.1.5' || 'localhost', function () {
     console.log('NodeJS Application ' + port + ' Started...')
 });
 

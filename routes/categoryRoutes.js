@@ -8,6 +8,8 @@ module.exports = (app) => {
     // PUT -> CẬP NHẬT DỮ LIỆU
     // DELETE -> XÓA DỮ LIỆU
 
+    app.get('/api/categories/getAll', passport.authenticate('jwt', { session: false }), categoriesController.getAll);
+
     app.post('/api/categories/create', passport.authenticate('jwt', { session: false }), categoriesController.create);
 
 

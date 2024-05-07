@@ -5,6 +5,39 @@ const asyncForEach = require('../utils/async_foreach');
 
 module.exports = {
 
+    findByCategory(req, res) {
+        const id_category = req.params.id_category;
+
+        Product.findByCategory(id_category, (err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'There Was An Error When Listing The Categories',
+                    error: err
+                });
+            }
+
+            return res.status(201).json(data);
+        });
+    },
+
+    findByNameAndCategory(req, res) {
+        const id_category = req.params.id_category;
+        const name = req.params.name;
+
+        Product.findByNameAndCategory(name, id_category, (err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'There Was An Error When Listing The Categories',
+                    error: err
+                });
+            }
+
+            return res.status(201).json(data);
+        });
+    },
+
     create(req, res) {
 
         const product = JSON.parse(req.body.product); // TÔI LẤY DỮ LIỆU KHÁCH HÀNG GỬI CHO TÔI

@@ -13,6 +13,7 @@ const multer = require('multer');
 const usersRoutes = require('./routes/userRoutes');
 const categoriesRoutes = require('./routes/categoryRoutes');
 const productRoutes = require('./routes/productRoutes');
+const addressRoutes = require('./routes/addressRoutes');
 
 const port = process.env.PORT || 3000;
 
@@ -51,9 +52,10 @@ const upload = multer({
 usersRoutes(app, upload);
 categoriesRoutes(app);
 productRoutes(app, upload);
+addressRoutes(app);
 
 
-server.listen(port, '192.168.1.8' || 'localhost', function () {
+server.listen(port, '192.168.1.9' || 'localhost', function () {
     console.log('NodeJS Application ' + port + ' Started...')
 });
 

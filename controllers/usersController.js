@@ -7,6 +7,21 @@ const storage = require('../utils/cloud_storage');
 
 module.exports = {
 
+    findDeliveryMen(req, res) {
+        User.findDeliveryMen((err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'There was an error when listing the delivery people',
+                    error: err
+                });
+            }
+
+
+            return res.status(201).json(data);
+        });
+    },
+
     login(req, res) {
 
         const email = req.body.email;
@@ -15,7 +30,7 @@ module.exports = {
         User.findByEmail(email, async (err, myUser) => {
 
             console.log('Error ', err);
-            console.log('USER ', myUser);
+            //console.log('USER ', myUser);
 
             if (err) {
                 return res.status(501).json({

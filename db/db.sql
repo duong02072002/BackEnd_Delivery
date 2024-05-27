@@ -5,6 +5,7 @@ CREATE TABLE users(
     email VARCHAR(180) NOT NULL UNIQUE,
     name VARCHAR(90) NOT NULL,
     lastname VARCHAR(90) NOT NULL,
+    notification_token VARCHAR(255),
     phone VARCHAR(90) NOT NULL UNIQUE,
     image VARCHAR(255) NULL,
     password VARCHAR(90) NOT NULL,

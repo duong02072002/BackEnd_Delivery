@@ -5,6 +5,28 @@ const asyncForEach = require('../utils/async_foreach');
 
 module.exports = {
 
+    deleteProduct(req, res) {
+        const productId = req.params.productId; // Lấy productId từ request
+
+        Product.delete(productId, (err, deletedProductId) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Error deleting product',
+                    error: err
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: 'Product deleted successfully',
+                deletedProductId: deletedProductId
+            });
+        });
+    },
+
+
+
     findByCategory(req, res) {
         const id_category = req.params.id_category;
 
@@ -13,6 +35,20 @@ module.exports = {
                 return res.status(501).json({
                     success: false,
                     message: 'There Was An Error When Listing The Categories',
+                    error: err
+                });
+            }
+
+            return res.status(201).json(data);
+        });
+    },
+
+    findAllProducts(req, res) {
+        Product.findAllProducts((err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'An error occurred while listing the product',
                     error: err
                 });
             }
@@ -30,6 +66,22 @@ module.exports = {
                 return res.status(501).json({
                     success: false,
                     message: 'There Was An Error When Listing The Categories',
+                    error: err
+                });
+            }
+
+            return res.status(201).json(data);
+        });
+    },
+
+    findByName(req, res) {
+        const name = req.params.name;
+
+        Product.findByName(name, (err, data) => {
+            if (err) {
+                return res.status(501).json({
+                    success: false,
+                    message: 'There Was An Error When Finding Products By Name',
                     error: err
                 });
             }

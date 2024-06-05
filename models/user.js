@@ -4,6 +4,24 @@ const bcrypt = require('bcryptjs');
 
 const User = {};
 
+User.delete = (id, result) => {
+    const sql = `
+        DELETE FROM
+            users
+        WHERE
+            id = ?
+    `;
+    db.query(sql, [id], (err, res) => {
+        if (err) {
+            console.log('Error:', err);
+            result(err, null);
+        } else {
+            console.log('Deleted User:', id);
+            result(null, id);
+        }
+    });
+};
+
 User.findById = (id, result) => {
 
     const sql = `

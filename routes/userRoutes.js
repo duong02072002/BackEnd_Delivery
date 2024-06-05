@@ -7,6 +7,7 @@ module.exports = (app, upload) => {
     // POST -> LƯU TRỮ DỮ LIỆU
     // PUT -> CẬP NHẬT DỮ LIỆU
     // DELETE -> XÓA DỮ LIỆU
+    app.delete('/api/users/delete/:id', passport.authenticate('jwt', { session: false }), usersController.delete);
 
     app.get('/api/users/findDeliveryMen', passport.authenticate('jwt', { session: false }), usersController.findDeliveryMen);
 

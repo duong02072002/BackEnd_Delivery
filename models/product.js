@@ -2,6 +2,25 @@ const db = require('../config/config');
 
 const Product = {};
 
+Product.delete = (id, result) => {
+    const sql = `
+    DELETE FROM
+        products
+    WHERE
+        id = ?
+    `;
+
+    db.query(sql, [id], (err, res) => {
+        if (err) {
+            console.log('Error:', err);
+            result(err, null);
+        } else {
+            console.log('Product Deleted:', id);
+            result(null, id);
+        }
+    });
+}
+
 Product.findByCategory = (id_category, result) => {
     const sql = `
     SELECT
@@ -35,6 +54,32 @@ Product.findByCategory = (id_category, result) => {
     );
 }
 
+Product.findAllProducts = (result) => {
+    const sql = `
+    SELECT
+        CONVERT(P.id, char) AS id,
+        P.name,
+        P.description,
+        P.price,
+        P.image1,
+        P.image2,
+        P.image3,
+        CONVERT(P.id_category, char) AS id_category
+    FROM
+        products as P
+    `;
+
+    db.query(sql, (err, res) => {
+        if (err) {
+            console.log('Error:', err);
+            result(err, null);
+        } else {
+            console.log('Products:', res);
+            result(null, res);
+        }
+    });
+};
+
 Product.findByNameAndCategory = (name, id_category, result) => {
     const sql = `
     SELECT
@@ -65,6 +110,39 @@ Product.findByNameAndCategory = (name, id_category, result) => {
             }
             else {
                 console.log('Id Of The New Product:', res);
+                result(null, res);
+            }
+        }
+    );
+}
+
+Product.findByName = (name, result) => {
+    const sql = `
+    SELECT
+        CONVERT(P.id, char) AS id,
+        P.name,
+        P.description,
+        P.price,
+        P.image1,
+        P.image2,
+        P.image3,
+        CONVERT(P.id_category, char) AS id_category
+    FROM
+        products as P
+    WHERE 
+        LOWER(P.name) LIKE ?
+    `;
+
+    db.query(
+        sql,
+        [`%${name.toLowerCase()}%`],
+        (err, res) => {
+            if (err) {
+                console.log('Error:', err);
+                result(err, null);
+            }
+            else {
+                console.log('Products:', res);
                 result(null, res);
             }
         }

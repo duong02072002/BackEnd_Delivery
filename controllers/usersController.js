@@ -7,6 +7,26 @@ const storage = require('../utils/cloud_storage');
 
 module.exports = {
 
+    delete(req, res) {
+        const userId = req.params.id;
+
+        User.delete(userId, (err, deletedUserId) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Error deleting user',
+                    error: err
+                });
+            } else {
+                return res.status(200).json({
+                    success: true,
+                    message: 'User deleted successfully',
+                    deletedUserId: deletedUserId
+                });
+            }
+        });
+    },
+
     findDeliveryMen(req, res) {
         User.findDeliveryMen((err, data) => {
             if (err) {
@@ -21,6 +41,7 @@ module.exports = {
             return res.status(201).json(data);
         });
     },
+
 
     login(req, res) {
 

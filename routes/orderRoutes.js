@@ -19,5 +19,6 @@ module.exports = (app) => {
     app.put('/api/orders/updateToDelivered', passport.authenticate('jwt', { session: false }), OrdersController.updateToDelivered);
     app.put('/api/orders/updateLatLng', passport.authenticate('jwt', { session: false }), OrdersController.updateLatLng);
 
-
+    // Thêm đường dẫn đến phương thức thống kê tổng số lượng đã bán và doanh thu
+    app.get('/api/orders/totalSales', passport.authenticate('jwt', { session: false }), OrdersController.getTotalSales);
 }

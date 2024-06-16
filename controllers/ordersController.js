@@ -5,6 +5,25 @@ const User = require('../models/user');
 
 module.exports = {
 
+    async getTotalSales(req, res) {
+        OrderHasProducts.getTotalSales((err, data) => {
+            if (err) {
+                return res.status(500).json({
+                    success: false,
+                    message: 'Failed to retrieve total sales',
+                    error: err.message
+                });
+            }
+
+            return res.status(200).json({
+                success: true,
+                message: 'Successfully retrieved total sales',
+                total_quantity_sold: data.total_quantity_sold,
+                total_sales_amount: data.total_sales_amount
+            });
+        });
+    },
+
     findByStatus(req, res) {
         const status = req.params.status;
 

@@ -72,7 +72,7 @@ addressRoutes(app);
 ordersRoutes(app);
 
 
-server.listen(port, '172.18.224.1' || 'localhost', function () {
+server.listen(port, '172.19.144.1' || 'localhost', function () {
     console.log('NodeJS Application ' + port + ' Started...')
 });
 
